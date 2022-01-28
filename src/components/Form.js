@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component } from 'React';
 
 class Form extends Component {
   render() {
-    return (<h1>texto qualquer</h1>)
+    return (<h1>texto qualquer</h1>);
   }
 }
 
-export default Form
+export default Form;
