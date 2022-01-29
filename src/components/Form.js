@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Form extends Component {
   /* constructor() {
@@ -12,6 +13,16 @@ class Form extends Component {
   }
    */
   render() {
+  /*   const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    } = this.props; */
     return (
       <div className="main-container">
         <h2>Adicionar uma nova carta</h2>
@@ -72,5 +83,22 @@ class Form extends Component {
     );
   }
 }
+
+Form.propTypes = {
+  completeForm: PropTypes.shape({
+    cardName: PropTypes.string,
+    cardDescription: PropTypes.string,
+    cardAttr1: PropTypes.string,
+    cardAttr2: PropTypes.string,
+    cardAttr3: PropTypes.string,
+    cardImage: PropTypes.string,
+    cardRare: PropTypes.string,
+    cardTrunfo: PropTypes.bool,
+    hasTrunfo: PropTypes.bool,
+    isSaveButtonDisabled: PropTypes.bool,
+    onInputChange: PropTypes.func,
+    onSaveButtonClick: PropTypes.func,
+  }).isRequired,
+};
 
 export default Form;
