@@ -13,7 +13,7 @@ class Form extends Component {
   }
    */
   render() {
-  /*   const {
+    const {
       cardName,
       cardDescription,
       cardAttr1,
@@ -22,7 +22,11 @@ class Form extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
-    } = this.props; */
+      // hasTrunfo,
+      isSaveButtonDisabled,
+      onInputChange,
+      onSaveButtonClick,
+    } = this.props;
     return (
       <div className="main-container">
         <h2>Adicionar uma nova carta</h2>
@@ -32,15 +36,23 @@ class Form extends Component {
             data-testid="name-input"
             type="text"
             name="nome"
+            value={ cardName }
+            onChange={ onInputChange }
           />
           Descrição:
-          <textarea data-testid="description-input" />
+          <textarea
+            data-testid="description-input"
+            value={ cardDescription }
+            onChange={ onInputChange }
+          />
           Ataque:
           <input
             className="Ataque"
             data-testid="attr1-input"
             type="number"
             name="attr1"
+            value={ cardAttr1 }
+            onChange={ onInputChange }
           />
           Defesa:
           <input
@@ -48,6 +60,8 @@ class Form extends Component {
             data-testid="attr2-input"
             type="number"
             name="attr2"
+            value={ cardAttr2 }
+            onChange={ onInputChange }
           />
           Energia:
           <input
@@ -55,15 +69,23 @@ class Form extends Component {
             data-testid="attr3-input"
             type="number"
             name="attr3"
+            value={ cardAttr3 }
+            onChange={ onInputChange }
           />
           Imagem:
           <input
             data-testid="image-input"
             type="text"
+            value={ cardImage }
+            onChange={ onInputChange }
           />
           Raridade
-          <select data-testid="rare-input">
-            <option selected value="normal">Normal</option>
+          <select
+            data-testid="rare-input"
+            value={ cardRare }
+            onChange={ onInputChange }
+          >
+            <option value="normal">Normal</option>
             <option value="raro">Raro</option>
             <option value="muito raro">Muito Raro</option>
           </select>
@@ -71,10 +93,14 @@ class Form extends Component {
           <input
             data-testid="trunfo-input"
             type="checkbox"
+            checked={ cardTrunfo }
+            onChange={ onInputChange }
           />
           <button
             data-testid="save-button"
             type="button"
+            disabled={ isSaveButtonDisabled }
+            onClick={ onSaveButtonClick }
           >
             Salvar
           </button>
@@ -85,20 +111,18 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  completeForm: PropTypes.shape({
-    cardName: PropTypes.string,
-    cardDescription: PropTypes.string,
-    cardAttr1: PropTypes.string,
-    cardAttr2: PropTypes.string,
-    cardAttr3: PropTypes.string,
-    cardImage: PropTypes.string,
-    cardRare: PropTypes.string,
-    cardTrunfo: PropTypes.bool,
-    hasTrunfo: PropTypes.bool,
-    isSaveButtonDisabled: PropTypes.bool,
-    onInputChange: PropTypes.func,
-    onSaveButtonClick: PropTypes.func,
-  }).isRequired,
+  cardName: PropTypes.string.isRequired,
+  cardDescription: PropTypes.string.isRequired,
+  cardAttr1: PropTypes.string.isRequired,
+  cardAttr2: PropTypes.string.isRequired,
+  cardAttr3: PropTypes.string.isRequired,
+  cardImage: PropTypes.string.isRequired,
+  cardRare: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.bool.isRequired,
+  // hasTrunfo: PropTypes.bool.isRequired,
+  isSaveButtonDisabled: PropTypes.bool.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onSaveButtonClick: PropTypes.func.isRequired,
 };
 
 export default Form;
