@@ -15,6 +15,7 @@ class App extends React.Component {
       image: '',
       rarity: 'normal',
       isTrunfo: false,
+      saveButtonEnabled: false,
     };
   }
 
@@ -26,7 +27,36 @@ class App extends React.Component {
 
     this.setState({
       [name]: value,
-    });
+    }, () => this.validateSaveButton());
+  }
+
+  validateSaveButton = () => {
+    const { name, description, image, attr1, attr2, attr3 } = this.state;
+    const maxSingleAttr = 90;
+    const maxTotalAttr = 210;
+    const valMax = () => {
+      if (attr1 <= maxSingleAttr && attr2 <= maxSingleAttr && attr3 <= maxSingleAttr) {
+        return true;
+      }
+    };
+    const minAttr = 0;
+    const valMin = () => {
+      if (attr1 >= minAttr && attr2 >= minAttr && attr3 >= minAttr) {
+        return true;
+      }
+    };
+    const valSum = () => (attr1 + attr2 + attr3 <= maxTotalAttr);
+    const valText = () => {
+      if (name.length > 0 && description.length > 0 && image.length > 0) {
+        return true;
+      }
+    };
+    const allChecks = () => {
+      if (valMax === true && valSum === true && valText === true && valMin === true) {
+        return true;
+      }
+    };
+    return this.setState({ saveButtonEnabled: allChecks });
   }
 
   render() {
@@ -39,12 +69,12 @@ class App extends React.Component {
       image,
       rarity,
       isTrunfo,
+      saveButtonEnabled,
     } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
         <Form
-          onInputChange={ this.handleChange }
           cardName={ name }
           cardDescription={ description }
           cardAttr1={ attr1 }
@@ -53,6 +83,8 @@ class App extends React.Component {
           cardImage={ image }
           cardRare={ rarity }
           cardTrunfo={ isTrunfo }
+          onInputChange={ this.handleChange }
+          saveButtonEnabled={ saveButtonEnabled }
         />
         <Card
           cardName={ name }
@@ -64,7 +96,6 @@ class App extends React.Component {
           cardRare={ rarity }
           cardTrunfo={ isTrunfo }
         />
-        console.log(this.state);
       </div>
     );
   }
