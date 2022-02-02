@@ -14,7 +14,7 @@ class Card extends Component {
       cardTrunfo,
     } = this.props;
 
-    const withTrunfo = cardTrunfo;
+    const checkTrunfo = cardTrunfo;
 
     return (
       <div className="card-container">
@@ -25,7 +25,7 @@ class Card extends Component {
         <h3 data-testid="attr2-card">{ cardAttr2 }</h3>
         <h3 data-testid="attr3-card">{ cardAttr3 }</h3>
         <h4 data-testid="rare-card">{ cardRare }</h4>
-        {withTrunfo ? <p data-testid="trunfo-card">Super Trunfo</p> : ''}
+        {checkTrunfo ? <p data-testid="trunfo-card">Super Trunfo</p> : ''}
       </div>
     );
   }

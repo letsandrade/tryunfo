@@ -3,16 +3,6 @@ import PropTypes from 'prop-types';
 import './form.css';
 
 class Form extends Component {
-  /* constructor() {
-    super()
-
-    this.handleChange = this.handleChange.bind(this);
-
-    this.state = {
-
-    }
-  }
-   */
   render() {
     const {
       cardName,
@@ -28,6 +18,7 @@ class Form extends Component {
       onInputChange,
       onSaveButtonClick,
     } = this.props;
+
     return (
       <div className="main-container">
         <h2>Adicionar uma nova carta</h2>
@@ -36,12 +27,13 @@ class Form extends Component {
           <input
             data-testid="name-input"
             type="text"
-            name="nome"
+            name="name"
             value={ cardName }
             onChange={ onInputChange }
           />
           Descrição:
           <textarea
+            name="description"
             data-testid="description-input"
             value={ cardDescription }
             onChange={ onInputChange }
@@ -76,6 +68,7 @@ class Form extends Component {
           Imagem:
           <input
             data-testid="image-input"
+            name="image"
             type="text"
             value={ cardImage }
             onChange={ onInputChange }
@@ -83,6 +76,7 @@ class Form extends Component {
           Raridade
           <select
             data-testid="rare-input"
+            name="rarity"
             value={ cardRare }
             onChange={ onInputChange }
           >
@@ -93,6 +87,7 @@ class Form extends Component {
           Super trunfo?
           <input
             data-testid="trunfo-input"
+            name="isTrunfo"
             type="checkbox"
             checked={ cardTrunfo }
             onChange={ onInputChange }
@@ -100,6 +95,7 @@ class Form extends Component {
           <button
             data-testid="save-button"
             type="button"
+            name="saveButton"
             disabled={ isSaveButtonDisabled }
             onClick={ onSaveButtonClick }
           >
