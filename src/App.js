@@ -9,19 +9,18 @@ class App extends React.Component {
     this.state = {
       name: '',
       description: '',
-      attr1: 0,
-      attr2: 0,
-      attr3: 0,
+      attr1: '',
+      attr2: '',
+      attr3: '',
       image: '',
       rarity: 'normal',
       isTrunfo: false,
-      saveButtonEnabled: false,
+      isSaveButtonDisabled: true,
     };
   }
 
   // usei arrow function pra não precisar fazer bind
-  handleChange = ({ target }) => {
-    console.log(target.value);
+  onInputChange = ({ target }) => {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
@@ -30,33 +29,18 @@ class App extends React.Component {
     }, () => this.validateSaveButton());
   }
 
+  // ref uso do unary op para converter string em numero: https://www.techiediaries.com/javascript/convert-string-number-array-react-hooks-vuejs/
   validateSaveButton = () => {
     const { name, description, image, attr1, attr2, attr3 } = this.state;
     const maxSingleAttr = 90;
     const maxTotalAttr = 210;
-    const valMax = () => {
-      if (attr1 <= maxSingleAttr && attr2 <= maxSingleAttr && attr3 <= maxSingleAttr) {
-        return true;
-      }
-    };
-    const minAttr = 0;
-    const valMin = () => {
-      if (attr1 >= minAttr && attr2 >= minAttr && attr3 >= minAttr) {
-        return true;
-      }
-    };
-    const valSum = () => (attr1 + attr2 + attr3 <= maxTotalAttr);
-    const valText = () => {
-      if (name.length > 0 && description.length > 0 && image.length > 0) {
-        return true;
-      }
-    };
-    const allChecks = () => {
-      if (valMax === true && valSum === true && valText === true && valMin === true) {
-        return true;
-      }
-    };
-    return this.setState({ saveButtonEnabled: allChecks });
+    const arrOfAttr = [+attr1, +attr2, +attr3];
+    // usei como referencia o pr da tabata souto para a solução do every
+    const valSingle = (arrOfAttr.every((attr) => attr <= maxSingleAttr && attr > 0));
+    const valSum = ((+attr1 + +attr2 + +attr3) <= maxTotalAttr);
+    const valText = (name.length > 0 && description.length > 0 && image.length > 0);
+    const allChecks = valSingle && valSum && valText;
+    this.setState(() => ({ isSaveButtonDisabled: !allChecks }));
   }
 
   render() {
@@ -69,7 +53,7 @@ class App extends React.Component {
       image,
       rarity,
       isTrunfo,
-      saveButtonEnabled,
+      isSaveButtonDisabled,
     } = this.state;
     return (
       <div>
@@ -83,8 +67,9 @@ class App extends React.Component {
           cardImage={ image }
           cardRare={ rarity }
           cardTrunfo={ isTrunfo }
-          onInputChange={ this.handleChange }
-          saveButtonEnabled={ saveButtonEnabled }
+          onInputChange={ this.onInputChange }
+          isSaveButtonDisabled={ isSaveButtonDisabled }
+          // onSaveButtonClick={ onSaveButtonClick }
         />
         <Card
           cardName={ name }
