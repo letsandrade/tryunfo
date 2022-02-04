@@ -27,7 +27,6 @@ class App extends React.Component {
     this.setState({
       [name]: value,
     }, this.validateSaveButton);
-    console.log(this.state);
   }
   // problema a ser resolvido: this.state só é atualizado depois de fazer 1 alteração a mais do que deveria para setar isTrunfo para true
 
@@ -38,7 +37,6 @@ class App extends React.Component {
     const maxTotalAttr = 210;
     const arrOfAttr = [+attr1, +attr2, +attr3];
     const valSingle = (arrOfAttr.every((attr) => attr <= maxSingleAttr && attr >= 0));
-    console.log(valSingle);
     const valSum = ((+attr1 + +attr2 + +attr3) <= maxTotalAttr);
     const valText = (name.length > 0 && description.length > 0 && image.length > 0);
 
