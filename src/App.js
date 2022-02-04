@@ -26,22 +26,44 @@ class App extends React.Component {
 
     this.setState({
       [name]: value,
-    }, () => this.validateSaveButton());
+    });
+    this.setState((prevState) => {
+      const { description, image, attr1, attr2, attr3 } = this.state;
+      const maxSingleAttr = 90;
+      const maxTotalAttr = 210;
+      const arrOfAttr = [+attr1, +attr2, +attr3];
+      const valSingle = (arrOfAttr.every((attr) => attr <= maxSingleAttr && attr > 0));
+      console.log(valSingle);
+      const valSum = ((+attr1 + +attr2 + +attr3) <= maxTotalAttr);
+      console.log(valSum);
+      const valText = (name.length > 0 && description.length > 0 && image.length > 0);
+      console.log(valText);
+      const allChecks = valSingle && valSum && valText;
+      console.log(allChecks, '-------------------');
+      if (allChecks === true) {
+        prevState.isSaveButtonDisabled = false;
+      }
+    });
+    console.log(this.state);
   }
 
   // ref uso do unary operator para converter string em numero: https://www.techiediaries.com/javascript/convert-string-number-array-react-hooks-vuejs/
-  validateSaveButton = () => {
+  /*   validateSaveButton = () => {
     const { name, description, image, attr1, attr2, attr3 } = this.state;
     const maxSingleAttr = 90;
     const maxTotalAttr = 210;
     const arrOfAttr = [+attr1, +attr2, +attr3];
     const valSingle = (arrOfAttr.every((attr) => attr <= maxSingleAttr && attr > 0));
+    console.log(valSingle);
     const valSum = ((+attr1 + +attr2 + +attr3) <= maxTotalAttr);
+    console.log(valSum);
     const valText = (name.length > 0 && description.length > 0 && image.length > 0);
+    console.log(valText);
     const allChecks = valSingle && valSum && valText;
+    console.log(allChecks);
     this.setState(() => ({ isSaveButtonDisabled: !allChecks }));
     console.log(this.state);
-  }
+  } */
 
   render() {
     const {
