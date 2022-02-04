@@ -26,45 +26,26 @@ class App extends React.Component {
 
     this.setState({
       [name]: value,
-    });
-    this.setState((prevState) => {
-      const { description, image, attr1, attr2, attr3 } = this.state;
-      const maxSingleAttr = 90;
-      const maxTotalAttr = 210;
-      const arrOfAttr = [+attr1, +attr2, +attr3];
-      const valSingle = (arrOfAttr.every((attr) => attr <= maxSingleAttr && attr > 0));
-      console.log(valSingle);
-      const valSum = ((+attr1 + +attr2 + +attr3) <= maxTotalAttr);
-      console.log(valSum);
-      const valText = (name.length > 0 && description.length > 0 && image.length > 0);
-      console.log(valText);
-      const allChecks = valSingle && valSum && valText;
-      console.log(allChecks, '-------------------');
-      if (allChecks === true) {
-        prevState.isSaveButtonDisabled = false;
-      }
-    });
+    }, this.validateSaveButton);
     console.log(this.state);
   }
-  // problema a ser resolvido: this.state só é atualizado depois de fazer 1 alteração a mais do que deveria tanto para habilitar o botão, como para setar isTrunfo para true
+  // problema a ser resolvido: this.state só é atualizado depois de fazer 1 alteração a mais do que deveria para setar isTrunfo para true
 
   // ref uso do unary operator para converter string em numero: https://www.techiediaries.com/javascript/convert-string-number-array-react-hooks-vuejs/
-  /*   validateSaveButton = () => {
+  validateSaveButton = () => {
     const { name, description, image, attr1, attr2, attr3 } = this.state;
     const maxSingleAttr = 90;
     const maxTotalAttr = 210;
     const arrOfAttr = [+attr1, +attr2, +attr3];
-    const valSingle = (arrOfAttr.every((attr) => attr <= maxSingleAttr && attr > 0));
+    const valSingle = (arrOfAttr.every((attr) => attr <= maxSingleAttr && attr >= 0));
     console.log(valSingle);
     const valSum = ((+attr1 + +attr2 + +attr3) <= maxTotalAttr);
-    console.log(valSum);
     const valText = (name.length > 0 && description.length > 0 && image.length > 0);
-    console.log(valText);
+
     const allChecks = valSingle && valSum && valText;
-    console.log(allChecks);
+
     this.setState(() => ({ isSaveButtonDisabled: !allChecks }));
-    console.log(this.state);
-  } */
+  }
 
   render() {
     const {
@@ -92,7 +73,7 @@ class App extends React.Component {
           cardTrunfo={ isTrunfo }
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ isSaveButtonDisabled }
-          // onSaveButtonClick={ onSaveButtonClick }
+        // onSaveButtonClick={ onSaveButtonClick }
         />
         <Card
           cardName={ name }
