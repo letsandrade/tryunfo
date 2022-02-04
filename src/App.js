@@ -46,6 +46,7 @@ class App extends React.Component {
     });
     console.log(this.state);
   }
+  // problema a ser resolvido: this.state só é atualizado depois de fazer 1 alteração a mais do que deveria tanto para habilitar o botão, como para setar isTrunfo para true
 
   // ref uso do unary operator para converter string em numero: https://www.techiediaries.com/javascript/convert-string-number-array-react-hooks-vuejs/
   /*   validateSaveButton = () => {
