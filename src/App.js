@@ -16,6 +16,7 @@ class App extends React.Component {
       rarity: 'normal',
       isTrunfo: false,
       isSaveButtonDisabled: true,
+      cardDeck: [{}],
     };
   }
 
@@ -45,6 +46,43 @@ class App extends React.Component {
     this.setState(() => ({ isSaveButtonDisabled: !allChecks }));
   }
 
+  handleSaveButton = (event) => {
+    event.preventDefault();
+    const {
+      name,
+      description,
+      attr1,
+      attr2,
+      attr3,
+      image,
+      rarity,
+      isTrunfo,
+      cardDeck,
+    } = this.state;
+
+    const cardObj = {
+      name,
+      description,
+      attr1,
+      attr2,
+      attr3,
+      image,
+      rarity,
+      isTrunfo,
+    };
+    cardDeck.push(cardObj);
+    this.setState({
+      name: '',
+      description: '',
+      attr1: '0',
+      attr2: '0',
+      attr3: '0',
+      image: '',
+      rarity: 'normal',
+      isTrunfo: false,
+    });
+  }
+
   render() {
     const {
       name,
@@ -71,7 +109,7 @@ class App extends React.Component {
           cardTrunfo={ isTrunfo }
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ isSaveButtonDisabled }
-        // onSaveButtonClick={ onSaveButtonClick }
+          onSaveButtonClick={ this.handleSaveButton }
         />
         <Card
           cardName={ name }
