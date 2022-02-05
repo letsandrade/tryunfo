@@ -103,44 +103,42 @@ class App extends React.Component {
       rarity,
       isTrunfo,
       hasTrunfo,
-      cardDeck,
+      // cardDeck,
       isSaveButtonDisabled,
     } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
-        <section>
-          <Form
-            cardName={ name }
-            cardDescription={ description }
-            cardAttr1={ attr1 }
-            cardAttr2={ attr2 }
-            cardAttr3={ attr3 }
-            cardImage={ image }
-            cardRare={ rarity }
-            cardTrunfo={ isTrunfo }
-            hasTrunfo={ hasTrunfo }
-            onInputChange={ this.onInputChange }
-            isSaveButtonDisabled={ isSaveButtonDisabled }
-            onSaveButtonClick={ this.onSaveButtonClick }
-          />
-        </section>
-        <section className="card-preview">
-          <Card
-            cardName={ name }
-            cardDescription={ description }
-            cardAttr1={ attr1 }
-            cardAttr2={ attr2 }
-            cardAttr3={ attr3 }
-            cardImage={ image }
-            cardRare={ rarity }
-            cardTrunfo={ isTrunfo }
-          />
-        </section>
-        <section className="full-deck">
-          {cardDeck.map((card) => (
-            <div key={ card.name }>
+        <Form
+          cardName={ name }
+          cardDescription={ description }
+          cardAttr1={ attr1 }
+          cardAttr2={ attr2 }
+          cardAttr3={ attr3 }
+          cardImage={ image }
+          cardRare={ rarity }
+          cardTrunfo={ isTrunfo }
+          hasTrunfo={ hasTrunfo }
+          onInputChange={ this.onInputChange }
+          isSaveButtonDisabled={ isSaveButtonDisabled }
+          onSaveButtonClick={ this.onSaveButtonClick }
+        />
+        <Card
+          cardName={ name }
+          cardDescription={ description }
+          cardAttr1={ attr1 }
+          cardAttr2={ attr2 }
+          cardAttr3={ attr3 }
+          cardImage={ image }
+          cardRare={ rarity }
+          cardTrunfo={ isTrunfo }
+        />
+        {/* <section className="full-deck">
+          <h2>Deck Completo</h2>
+          <div className="cards-deck">
+            {cardDeck.map((card) => (
               <Card
+                key={ card.name }
                 cardName={ card.name }
                 cardDescription={ card.description }
                 cardAttr1={ card.attr1 }
@@ -150,9 +148,9 @@ class App extends React.Component {
                 cardRare={ card.rarity }
                 cardTrunfo={ card.isTrunfo }
               />
-            </div>
-          ))}
-        </section>
+            ))}
+          </div>
+        </section> */}
       </div>
     );
   }
