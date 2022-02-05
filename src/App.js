@@ -17,6 +17,7 @@ class App extends React.Component {
       isTrunfo: false,
       isSaveButtonDisabled: true,
       cardDeck: [{}],
+      hasTrunfo: false,
     };
   }
 
@@ -29,7 +30,6 @@ class App extends React.Component {
       [name]: value,
     }, this.validateSaveButton);
   }
-  // problema a ser resolvido: this.state só é atualizado depois de fazer 1 alteração a mais do que deveria para setar isTrunfo para true
 
   // ref uso do unary operator para converter string em numero: https://www.techiediaries.com/javascript/convert-string-number-array-react-hooks-vuejs/
   validateSaveButton = () => {
@@ -46,7 +46,7 @@ class App extends React.Component {
     this.setState(() => ({ isSaveButtonDisabled: !allChecks }));
   }
 
-  handleSaveButton = (event) => {
+  onSaveButtonClick = (event) => {
     event.preventDefault();
     const {
       name,
@@ -57,7 +57,6 @@ class App extends React.Component {
       image,
       rarity,
       isTrunfo,
-      cardDeck,
     } = this.state;
 
     const cardObj = {
@@ -70,8 +69,8 @@ class App extends React.Component {
       rarity,
       isTrunfo,
     };
-    cardDeck.push(cardObj);
-    this.setState({
+
+    this.setState((prevState) => ({
       name: '',
       description: '',
       attr1: '0',
@@ -80,6 +79,16 @@ class App extends React.Component {
       image: '',
       rarity: 'normal',
       isTrunfo: false,
+      isSaveButtonDisabled: true,
+      cardDeck: [...prevState.cardDeck, cardObj],
+    }), this.checkTrunfo);
+  }
+
+  checkTrunfo = () => {
+    const { cardDeck } = this.state;
+    const valTrunfo = cardDeck.some((item) => item.isTrunfo);
+    this.setState({
+      hasTrunfo: valTrunfo,
     });
   }
 
@@ -93,6 +102,7 @@ class App extends React.Component {
       image,
       rarity,
       isTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
     } = this.state;
     return (
@@ -107,9 +117,10 @@ class App extends React.Component {
           cardImage={ image }
           cardRare={ rarity }
           cardTrunfo={ isTrunfo }
+          hasTrunfo={ hasTrunfo }
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ isSaveButtonDisabled }
-          onSaveButtonClick={ this.handleSaveButton }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card
           cardName={ name }
