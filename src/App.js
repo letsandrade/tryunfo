@@ -9,14 +9,14 @@ class App extends React.Component {
     this.state = {
       name: '',
       description: '',
-      attr1: '',
-      attr2: '',
-      attr3: '',
+      attr1: '0',
+      attr2: '0',
+      attr3: '0',
       image: '',
       rarity: 'normal',
       isTrunfo: false,
       isSaveButtonDisabled: true,
-      cardDeck: [{}],
+      cardDeck: [],
       hasTrunfo: false,
     };
   }
@@ -103,7 +103,7 @@ class App extends React.Component {
       rarity,
       isTrunfo,
       hasTrunfo,
-      // cardDeck,
+      cardDeck,
       isSaveButtonDisabled,
     } = this.state;
     return (
@@ -133,10 +133,10 @@ class App extends React.Component {
           cardRare={ rarity }
           cardTrunfo={ isTrunfo }
         />
-        {/* <section className="full-deck">
+        <section className="full-deck">
           <h2>Deck Completo</h2>
           <div className="cards-deck">
-            {cardDeck.map((card) => (
+            {cardDeck.length > 0 ? (cardDeck.map((card) => (
               <Card
                 key={ card.name }
                 cardName={ card.name }
@@ -148,9 +148,9 @@ class App extends React.Component {
                 cardRare={ card.rarity }
                 cardTrunfo={ card.isTrunfo }
               />
-            ))}
+            ))) : ''}
           </div>
-        </section> */}
+        </section>
       </div>
     );
   }
