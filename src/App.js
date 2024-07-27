@@ -158,7 +158,7 @@ class App extends React.Component {
           </div>
         </section>
         <section className="full_deck">
-          <h2>Deck Completo</h2>
+          <h2 className="section_title">Deck Completo</h2>
           <div className="cards_deck">
             {cardDeck.length > 0 ? (cardDeck.map((card) => (
               <Card

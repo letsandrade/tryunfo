@@ -21,7 +21,7 @@ class Form extends Component {
 
     return (
       <div className="main-container">
-        <h2 className="section_title">Adicionar uma nova carta</h2>
+        <h2 className="section_title">Adicionar carta</h2>
         <form className="form customshadow">
           <label className="form_label" htmlFor="name">
             Nome:
