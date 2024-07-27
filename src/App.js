@@ -21,7 +21,10 @@ class App extends React.Component {
     };
   }
 
-  // usei arrow function pra não precisar fazer bind
+  componentDidMount() {
+    this.loadDeckFromLocalStorage();
+  }
+
   onInputChange = ({ target }) => {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -31,7 +34,6 @@ class App extends React.Component {
     }, this.validateSaveButton);
   }
 
-  // ref uso do unary operator para converter string em numero: https://www.techiediaries.com/javascript/convert-string-number-array-react-hooks-vuejs/
   validateSaveButton = () => {
     const { name, description, image, attr1, attr2, attr3 } = this.state;
     const maxSingleAttr = 90;
@@ -70,18 +72,23 @@ class App extends React.Component {
       isTrunfo,
     };
 
-    this.setState((prevState) => ({
-      name: '',
-      description: '',
-      attr1: '0',
-      attr2: '0',
-      attr3: '0',
-      image: '',
-      rarity: 'normal',
-      isTrunfo: false,
-      isSaveButtonDisabled: true,
-      cardDeck: [...prevState.cardDeck, cardObj],
-    }), this.checkTrunfo);
+    this.setState((prevState) => {
+      const updatedDeck = [...prevState.cardDeck, cardObj];
+      this.saveDeckToLocalStorage(updatedDeck);
+
+      return {
+        name: '',
+        description: '',
+        attr1: '0',
+        attr2: '0',
+        attr3: '0',
+        image: '',
+        rarity: 'normal',
+        isTrunfo: false,
+        isSaveButtonDisabled: true,
+        cardDeck: updatedDeck,
+      };
+    }, this.checkTrunfo);
   }
 
   checkTrunfo = () => {
@@ -90,6 +97,18 @@ class App extends React.Component {
     this.setState({
       hasTrunfo: valTrunfo,
     });
+  }
+
+  saveDeckToLocalStorage = (deck) => {
+    localStorage.setItem('cardDeck', JSON.stringify(deck));
+  }
+
+  loadDeckFromLocalStorage = () => {
+    const storedDeck = localStorage.getItem('cardDeck');
+    if (storedDeck) {
+      const cardDeck = JSON.parse(storedDeck);
+      this.setState({ cardDeck }, this.checkTrunfo);
+    }
   }
 
   render() {
@@ -108,34 +127,39 @@ class App extends React.Component {
     } = this.state;
     return (
       <div>
-        <h1>Tryunfo</h1>
-        <Form
-          cardName={ name }
-          cardDescription={ description }
-          cardAttr1={ attr1 }
-          cardAttr2={ attr2 }
-          cardAttr3={ attr3 }
-          cardImage={ image }
-          cardRare={ rarity }
-          cardTrunfo={ isTrunfo }
-          hasTrunfo={ hasTrunfo }
-          onInputChange={ this.onInputChange }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
-          onSaveButtonClick={ this.onSaveButtonClick }
-        />
-        <Card
-          cardName={ name }
-          cardDescription={ description }
-          cardAttr1={ attr1 }
-          cardAttr2={ attr2 }
-          cardAttr3={ attr3 }
-          cardImage={ image }
-          cardRare={ rarity }
-          cardTrunfo={ isTrunfo }
-        />
-        <section className="full-deck">
+        <h1 className="tryunfo">Tryunfo</h1>
+        <section className="create_card">
+          <Form
+            cardName={ name }
+            cardDescription={ description }
+            cardAttr1={ attr1 }
+            cardAttr2={ attr2 }
+            cardAttr3={ attr3 }
+            cardImage={ image }
+            cardRare={ rarity }
+            cardTrunfo={ isTrunfo }
+            hasTrunfo={ hasTrunfo }
+            onInputChange={ this.onInputChange }
+            isSaveButtonDisabled={ isSaveButtonDisabled }
+            onSaveButtonClick={ this.onSaveButtonClick }
+          />
+          <div className="preview_container">
+            <h2 className="section_title">Preview da carta</h2>
+            <Card
+              cardName={ name }
+              cardDescription={ description }
+              cardAttr1={ attr1 }
+              cardAttr2={ attr2 }
+              cardAttr3={ attr3 }
+              cardImage={ image }
+              cardRare={ rarity }
+              cardTrunfo={ isTrunfo }
+            />
+          </div>
+        </section>
+        <section className="full_deck">
           <h2>Deck Completo</h2>
-          <div className="cards-deck">
+          <div className="cards_deck">
             {cardDeck.length > 0 ? (cardDeck.map((card) => (
               <Card
                 key={ card.name }

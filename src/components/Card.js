@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './styles.css';
 
 class Card extends Component {
   render() {
@@ -17,14 +18,33 @@ class Card extends Component {
     const checkTrunfo = cardTrunfo;
 
     return (
-      <div className="card-container">
-        <h2 data-testid="name-card">{ cardName }</h2>
-        <img data-testid="image-card" src={ cardImage } alt={ cardName } />
-        <p data-testid="description-card">{ cardDescription }</p>
-        <h3 data-testid="attr1-card">{ cardAttr1 }</h3>
-        <h3 data-testid="attr2-card">{ cardAttr2 }</h3>
-        <h3 data-testid="attr3-card">{ cardAttr3 }</h3>
-        <h4 data-testid="rare-card">{ cardRare }</h4>
+      <div className="card_container customshadow">
+        <h2 data-testid="name-card">{cardName}</h2>
+        <div className="card_img_container insetshadow">
+          <img
+            data-testid="image-card"
+            className="card_img"
+            src={ cardImage }
+            alt={ cardName }
+          />
+        </div>
+        <p data-testid="description-card">{cardDescription}</p>
+        <h3 data-testid="attr1-card">
+          Ataque:
+          {' '}
+          {cardAttr1}
+        </h3>
+        <h3 data-testid="attr2-card">
+          Defesa:
+          {' '}
+          {cardAttr2}
+        </h3>
+        <h3 data-testid="attr3-card">
+          Energia:
+          {' '}
+          {cardAttr3}
+        </h3>
+        <h4 data-testid="rare-card">{cardRare}</h4>
         {checkTrunfo ? <p data-testid="trunfo-card">Super Trunfo</p> : ''}
       </div>
     );

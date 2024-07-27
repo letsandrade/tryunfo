@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './form.css';
+import './styles.css';
 
 class Form extends Component {
   render() {
@@ -21,81 +21,114 @@ class Form extends Component {
 
     return (
       <div className="main-container">
-        <h2>Adicionar uma nova carta</h2>
-        <form className="form">
-          Nome:
-          <input
-            data-testid="name-input"
-            type="text"
-            name="name"
-            value={ cardName }
-            onChange={ onInputChange }
-          />
-          Descrição:
-          <textarea
-            name="description"
-            data-testid="description-input"
-            value={ cardDescription }
-            onChange={ onInputChange }
-          />
-          Ataque:
-          <input
-            className="Ataque"
-            data-testid="attr1-input"
-            type="number"
-            name="attr1"
-            value={ cardAttr1 }
-            onChange={ onInputChange }
-          />
-          Defesa:
-          <input
-            className="Defesa"
-            data-testid="attr2-input"
-            type="number"
-            name="attr2"
-            value={ cardAttr2 }
-            onChange={ onInputChange }
-          />
-          Energia:
-          <input
-            className="Energia"
-            data-testid="attr3-input"
-            type="number"
-            name="attr3"
-            value={ cardAttr3 }
-            onChange={ onInputChange }
-          />
-          Imagem:
-          <input
-            data-testid="image-input"
-            name="image"
-            type="text"
-            value={ cardImage }
-            onChange={ onInputChange }
-          />
-          Raridade
-          <select
-            data-testid="rare-input"
-            name="rarity"
-            value={ cardRare }
-            onChange={ onInputChange }
-          >
-            <option value="normal">Normal</option>
-            <option value="raro">Raro</option>
-            <option value="muito raro">Muito Raro</option>
-          </select>
-          Super trunfo?
-          { hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p>
-            : (
+        <h2 className="section_title">Adicionar uma nova carta</h2>
+        <form className="form customshadow">
+          <label className="form_label" htmlFor="name">
+            Nome:
+            <input
+              className="form_input"
+              data-testid="name-input"
+              type="text"
+              name="name"
+              id="name"
+              value={ cardName }
+              onChange={ onInputChange }
+            />
+          </label>
+          <label className="form_label" htmlFor="description">
+            Descrição:
+            <textarea
+              className="form_input"
+              name="description"
+              data-testid="description-input"
+              value={ cardDescription }
+              onChange={ onInputChange }
+            />
+          </label>
+          <div className="form_attrs_container">
+            <label className="form_label" htmlFor="attr1">
+              Ataque:
               <input
-                data-testid="trunfo-input"
-                name="isTrunfo"
-                type="checkbox"
-                checked={ cardTrunfo }
+                className="form_attr form_input"
+                data-testid="attr1-input"
+                type="number"
+                name="attr1"
+                id="attr1"
+                value={ cardAttr1 }
                 onChange={ onInputChange }
               />
-            ) }
+            </label>
+            <label className="form_label" htmlFor="attr2">
+              Defesa:
+              <input
+                className="form_attr form_input"
+                data-testid="attr2-input"
+                type="number"
+                id="attr2"
+                name="attr2"
+                value={ cardAttr2 }
+                onChange={ onInputChange }
+              />
+            </label>
+            <label className="form_label" htmlFor="attr3">
+              Energia:
+              <input
+                className="form_attr form_input"
+                data-testid="attr3-input"
+                type="number"
+                name="attr3"
+                id="attr3"
+                value={ cardAttr3 }
+                onChange={ onInputChange }
+              />
+            </label>
+          </div>
+          <label className="form_label" htmlFor="image">
+            Imagem:
+            <input
+              className="form_input"
+              data-testid="image-input"
+              name="image"
+              id="image"
+              type="text"
+              value={ cardImage }
+              onChange={ onInputChange }
+            />
+          </label>
+          <label className="form_label" htmlFor="rarity">
+            Raridade
+            <select
+              className="form_input"
+              data-testid="rare-input"
+              name="rarity"
+              id="rarity"
+              value={ cardRare }
+              onChange={ onInputChange }
+            >
+              <option value="normal">Normal</option>
+              <option value="raro">Raro</option>
+              <option value="muito raro">Muito Raro</option>
+            </select>
+          </label>
+          <div className="isTrunfo">
+            <label htmlFor="isTrunfo">
+              Super trunfo?
+              { hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p>
+                : (
+                  <input
+                    className="form_input"
+                    id="isTrunfo"
+                    data-testid="trunfo-input"
+                    name="isTrunfo"
+                    type="checkbox"
+                    checked={ cardTrunfo }
+                    onChange={ onInputChange }
+                  />
+                ) }
+            </label>
+          </div>
           <button
+            className="submit_button"
             data-testid="save-button"
             type="submit"
             name="saveButton"
